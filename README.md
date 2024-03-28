@@ -4,7 +4,7 @@ Single Linked Lists, Serialization, and Testing
 
 By: 
 
-Alen Johnson 
-Camilo Andres Gomez Ramires
-Hao Yu Gou
+Alen Johnson, 
+Camilo Andres Gomez Ramires,
+Hao Yu Gou,
 Bogdan Strinic
