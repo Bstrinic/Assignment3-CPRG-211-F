@@ -51,11 +51,8 @@ public class LinkedListTests
 	{
 		linkedlist.AddFirst(1);
 		var node = linkedlist.Find(1);
-		// Adds a new item after the existing node
 		linkedlist.AddAfter(node, 2);
-		//Removes original node
 		linkedlist.Remove(node); 
-		// Used to verify that the first number was replaced
 		Assert.AreEqual(2, linkedlist.First.Value);
 	}
 
