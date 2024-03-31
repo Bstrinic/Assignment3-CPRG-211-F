@@ -95,3 +95,5 @@ public class LinkedListTests
 		Assert.AreEqual(1, foundNode.Value);
 	}
 }
+
+// Tests are not working for some reason
