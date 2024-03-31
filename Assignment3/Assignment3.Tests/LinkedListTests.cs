@@ -59,4 +59,23 @@ public class LinkedListTests
 		Assert.AreEqual(2, linkedlist.First.Value);
 	}
 
+	[Test]
+	public void DeleteItemFromBeginning()
+	{
+		linkedlist.AddFirst(1);
+		//Removes the first item in the list
+		linkedlist.RemoveFirst();
+		// Verifies that the list is empty 
+		Assert.IsEmpty(linkedlist);
+	}
+
+	[Test]
+	public void DeleteItemFromEnd() 
+	{
+		linkedlist.AddLast(1);
+		// Removes the last item in the list
+		linkedlist.RemoveLast();
+		// Verify that the list is empty
+		Assert.IsEmpty(linkedlist);
+	}
 }
