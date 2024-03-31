@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Permissions;
 
 /// <summary>
 /// Summary description for Class1
@@ -36,5 +37,26 @@ public class LinkedListTests
 		Assert.AreEqual(1, linkedlist.Last.Value); // Checking to see if the item was added to the end
 	}
 
+	// To check if the item is added to a specific index in the list
+	[Test]
+	public void InsertItemAtIndex()
+	{
+		linkedlist.AddFirst(1);
+		linkedlist.AddAfter(linkedlist.First, 2);
+		Assert.AreEqual(2, linkedlist.Last.Value);
+	}
+
+	[Test]
+	public void ReplaceItem()
+	{
+		linkedlist.AddFirst(1);
+		var node = linkedlist.Find(1);
+		// Adds a new item after the existing node
+		linkedlist.AddAfter(node, 2);
+		//Removes original node
+		linkedlist.Remove(node); 
+		// Used to verify that the first number was replaced
+		Assert.AreEqual(2, linkedlist.First.Value);
+	}
 
 }
