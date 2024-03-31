@@ -78,4 +78,23 @@ public class LinkedListTests
 		// Verify that the list is empty
 		Assert.IsEmpty(linkedlist);
 	}
+
+	[Test]
+	public void DeleteFromMiddle() { 
+		linkedlist.AddFirst(1);
+		linkedlist.AddLast(3);
+		var middleNode = linkedlist.AddBefore(linkedlist.Last, 2);
+		linkedlist.RemoveAt(middleNode);
+		Assert.AreEqual(2, linkedlist.Count);
+		Assert.IsFalse(linkedlist.Contains(2));
+	}
+
+	[Test]
+	public void FindAndRetrieveItem()
+	{
+		linkedlist.AddFirst(1);
+		var foundNode = linkedlist.Find(1);
+		Assert.IsNotNull(foundNode);
+		Assert.AreEqual(1, foundNode.Value);
+	}
 }
