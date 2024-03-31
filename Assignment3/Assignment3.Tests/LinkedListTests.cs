@@ -84,7 +84,7 @@ public class LinkedListTests
 		linkedlist.AddFirst(1);
 		linkedlist.AddLast(3);
 		var middleNode = linkedlist.AddBefore(linkedlist.Last, 2);
-		linkedlist.RemoveAt(middleNode);
+		linkedlist.Remove(middleNode);
 		Assert.AreEqual(2, linkedlist.Count);
 		Assert.IsFalse(linkedlist.Contains(2));
 	}
