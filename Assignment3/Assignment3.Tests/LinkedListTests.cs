@@ -26,7 +26,14 @@ public class LinkedListTests
 	public void PrependItem()
 	{
 		linkedlist.AddFirst(1);
-		Assert.AreEqual(1, linkedlist.First.Value);
+		Assert.AreEqual(1, linkedlist.First.Value); // Checking to see if the item was added to the beginning 
+	}
+
+	[Test]
+	public void AppendItem()
+	{
+		linkedlist.AddLast(1);
+		Assert.AreEqual(1, linkedlist.Last.Value); // Checking to see if the item was added to the end
 	}
 
 
