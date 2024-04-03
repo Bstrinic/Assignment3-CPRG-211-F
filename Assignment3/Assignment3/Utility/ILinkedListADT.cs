@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,6 @@ namespace Assignment3
         /// </summary>
         /// <returns>True if it is empty.</returns>
         bool IsEmpty();
-
         /// <summary>
         /// Clears the list.
         /// </summary>
@@ -93,5 +93,9 @@ namespace Assignment3
         /// <param name="value">Value to find index of.</param>
         /// <returns>True if element exists with value.</returns>
         bool Contains(User value);
+        /// <summary>
+        /// See LinkedList class for explanation on reverse functionality.
+        /// </summary>
+        void Reverse();
     }
 }
