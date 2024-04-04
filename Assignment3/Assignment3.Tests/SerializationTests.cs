@@ -1,10 +1,11 @@
 using Assignment3.Utility;
+using System.Reflection.Metadata;
 
 namespace Assignment3.Tests
 {
     public class SerializationTests
     {
-        private ILinkedListADT users;
+        private SLL users;
         private readonly string testFileName = "test_users.bin";
 
         [SetUp]
@@ -41,6 +42,7 @@ namespace Assignment3.Tests
         [Test]
         public void TestDeSerialization()
         {
+
             SerializationHelper.SerializeUsers(users, testFileName);
             ILinkedListADT deserializedUsers = SerializationHelper.DeserializeUsers(testFileName);
             
@@ -51,6 +53,7 @@ namespace Assignment3.Tests
                 User expected = users.GetValue(i);
                 User actual = deserializedUsers.GetValue(i);
 
+                Assert.IsNotNull(deserializedUsers, "There are no deserialized users.");
                 Assert.AreEqual(expected.Id, actual.Id);
                 Assert.AreEqual(expected.Name, actual.Name);
                 Assert.AreEqual(expected.Email, actual.Email);

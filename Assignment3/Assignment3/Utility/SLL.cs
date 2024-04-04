@@ -1,236 +1,436 @@
-﻿using System;
+﻿
+
+using System;
+
 using System.Runtime.Serialization;
+using System.Xml.Linq;
+
+
 
 namespace Assignment3.Utility
+
 {
-    [DataContract]
-    [KnownType(typeof(SLL))]
+
+    [Serializable, KnownType(typeof(User))]
+
     public class SLL : ILinkedListADT
     {
-        [DataContract]
-        private class Node
+        public class Node
         {
-            private User value;
-            [DataMember]
-            public User Data { get; set; }
-            [DataMember]
+            public User Value { get; set; }
             public Node Next { get; set; }
-            public Node(User data, Node next)
+            public Node()
             {
-                Data = data;
-                Next = next;
-            }
-
-            public Node(User value)
-            {
-                this.value = value;
+                Value = null;
+                Next = null;
             }
         }
 
-        [DataMember]
-        private Node head;
+        public Node Head { get; set; }
+
+        public Node Tail { get; set; }
+
+        private int _count = 0;
+
+
 
         public SLL()
+
         {
-            _ = head == null;
+
+            this.Head = null;
+
+            this.Tail = null;
+
+            this._count = 0;
+
         }
-        public bool IsEmpty()
+
+
+
+        public void Add(User value, int index)
+
         {
-            return head == null;
+
+            if (index < 0 || index > _count)
+
+            {
+
+                throw new ArgumentOutOfRangeException(nameof(index));
+            }
+            Node newNode = new Node();
+
+            newNode.Value = value;
+
+
+
+            if (_count == 0)  // List is empty
+
+            {
+
+                Head = newNode;
+
+                Tail = newNode;
+
+            }
+
+            else if (index == 0)  // Add at the beginning
+
+            {
+
+                newNode.Next = Head;
+
+                Head = newNode;
+
+            }
+
+            else if (index == _count)  // Add at the end
+
+            {
+
+                Tail.Next = newNode;
+
+                Tail = newNode;
+
+            }
+
+            else  // Add in the middle
+
+            {
+
+                Node node = Head;
+
+                for (int i = 0; i < index - 1; i++)
+
+                {
+
+                    node = node.Next;
+
+                }
+
+                newNode.Next = node.Next;
+
+                node.Next = newNode;
+
+            }
+
+
+
+            _count++;
+
         }
+
+
+
+        public void AddFirst(User value)
+
+        {
+
+            Add(value, 0);
+
+        }
+
+
+
+        public void AddLast(User value)
+
+        {
+
+            Add(value, _count);
+
+        }
+
+
 
         public void Clear()
+
         {
-            head = null;
+
+            Head = null;
+
+            Tail = null;
+
+            _count = 0;
+
         }
-        public void AddLast(User value)
+
+
+
+        public bool Contains(User value)
         {
-            Node newNode = new Node(value);
-            if (head == null)
+
+            Node node = Head;
+
+            while (node != null)
+
             {
-                head = newNode;
-            }
-            else
-            {
-                Node current = head;
-                while (current.Next != null)
+
+                if (node.Value.Id == value.Id)
+
                 {
-                    current = current.Next;
+
+                    return true;
+
                 }
-                current.Next = newNode;
+
+                node = node.Next;
+
             }
+
+            return false;
+
         }
 
-        public void AddFirst(User Value)
+
+
+        public int Count()
+
         {
-            Node newNode = new Node(Value);
-            newNode.Next = head;
-            head = newNode;
-        }
-        public void Add(User Value, int index)
-        {
-            if (index < 0 || index > Count())
-            {
-                throw new IndexOutOfRangeException("Index is out of range");
-            }
 
-            if (index == 0)
-            {
-                AddFirst(Value);
-                return;
-            }
+            return _count;
 
-            Node newNode = new Node(Value);
-            Node current = head;
-            for (int i = 0; i < index - 1; i++)
-            {
-                current = current.Next;
-            }
-            newNode.Next = current.Next;
-            current.Next = newNode;
         }
 
-        public void Replace(User Value, int Index)
-        {
-            if (Index < 0 || Index >= Count())
-            {
-                throw new IndexOutOfRangeException("Index is out of range.");
-            }
 
-            Node current = head;
-            for (int i = 0; i < Index; i++)
-            {
-                current = current.Next;
-            }
-            current.Data = Value;
-        }
 
-        public void RemoveFirst()
-        {
-            if (IsEmpty())
-            {
-                throw new CannotRemoveException("Cannot remove from empty list");
-            }
-
-            head = head.Next;
-        }
-
-        public void RemoveLast()
-        {
-            if (IsEmpty())
-            {
-                throw new CannotRemoveException("Cannot remove from an empty list");
-            }
-
-            if (head.Next == null)
-            {
-                head = null;
-            }
-            else
-            {
-                Node current = head;
-                while (current.Next.Next != null)
-                {
-                    current = current.Next;
-                }
-                current.Next = null;
-            }
-        }
-
-        public void Remove(int index)
-        {
-            if (index < 0 || index >= Count())
-            {
-                throw new IndexOutOfRangeException("Index is out of range");
-            }
-
-            if (index == 0)
-            {
-                RemoveFirst();
-                return;
-            }
-
-            Node current = head;
-            for (int i = 0; i < index - 1; i++)
-            {
-                current = current.Next;
-            }
-            current.Next = current.Next.Next;
-        }
         public User GetValue(int index)
+
         {
-            if (index < 0 || index >= Count())
+
+            if (index < 0 || index >= _count)
+
             {
-                throw new IndexOutOfRangeException("Index is out of range.");
+
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
 
-            Node current = head;
+
+
+            Node node = Head;
+
             for (int i = 0; i < index; i++)
+
             {
-                current = current.Next;
+
+                node = node.Next;
+
             }
-            return current.Data;
+
+            return node.Value;
+
         }
+
+
 
         public int IndexOf(User value)
         {
-            Node current = head;
+
+            Node node = Head;
+
             int index = 0;
-            while (current != null)
+
+            while (node != null)
+
             {
-                if (current.Data.Equals(value))
+
+                if (node.Value.Equals(value))
+
                 {
+
                     return index;
+
                 }
-                current = current.Next;
+
+                node = node.Next;
+
                 index++;
+
             }
-            return -1; // Element not found
+
+            return -1;
 
         }
-        public bool Contains(User value)
+
+
+
+        public bool IsEmpty()
+
         {
-            return IndexOf(value) != -1;
+
+            return _count == 0;
+
         }
-        public void Reverse()
+
+
+
+        public void Remove(int index)
+
         {
-            // Initialize three pointers: prev, current, and next.
-            // prev: will initially be null, it will point to the previous node after reversal.
-            // current: starts at the head of the list and iterates through the list.
-            // next: temporarily stores the next node to prevent losing the reference to it during reversal.
+
+            if (index < 0 || index >= _count)
+
+            {
+
+                throw new ArgumentOutOfRangeException(nameof(index));
+
+            }
+
+
+
+            if (_count == 1)  // Only one element in the list
+
+            {
+
+                Head = null;
+
+                Tail = null;
+
+            }
+
+            else if (index == 0)  // Remove the first element
+
+            {
+
+                Head = Head.Next;
+
+            }
+
+            else if (index == _count - 1)  // Remove the last element
+
+            {
+
+                Node node = Head;
+
+                for (int i = 0; i < index - 1; i++)
+
+                {
+
+                    node = node.Next;
+
+                }
+
+                node.Next = null;
+
+                Tail = node;
+
+            }
+
+            else  // Remove from the middle
+
+            {
+
+                Node node = Head;
+
+                for (int i = 0; i < index - 1; i++)
+
+                {
+
+                    node = node.Next;
+
+                }
+
+                node.Next = node.Next.Next;
+
+            }
+
+
+
+            _count--;
+
+        }
+
+
+
+        public void RemoveFirst()
+
+        {
+
+            Remove(0);
+
+        }
+
+
+
+        public void RemoveLast()
+
+        {
+
+            Remove(_count - 1);
+
+        }
+
+
+
+        public void Replace(User value, int index)
+
+        {
+
+            if (index < 0 || index >= _count)
+
+            {
+
+                throw new ArgumentOutOfRangeException(nameof(index));
+            }
+
+
+
+            Node node = Head;
+
+            for (int i = 0; i < index; i++)
+
+            {
+
+                node = node.Next;
+
+            }
+
+
+
+            node.Value = value;
+
+        }
+
+
+
+        public void Reverse()
+
+        {
+
+            if (_count <= 1)
+
+            {
+
+                return;
+            }
             Node prev = null;
-            Node current = head;
+
+            Node current = Head;
+
             Node next = null;
 
-            // Iterate through the list
+
+
             while (current != null)
+
             {
-                // Store the next node in the list.
+
                 next = current.Next;
 
-                // Reverse the pointer of the current node to point to the previous node.
                 current.Next = prev;
 
-                // Move prev and current pointers one step forward in the list.
                 prev = current;
+
                 current = next;
+
             }
 
-            // After the loop, 'prev' will be pointing to the last node in the original list,
-            // so update 'head' to point to 'prev', effectively reversing the list.
-            head = prev;
+
+
+            Head = prev;
+
         }
 
-        public int Count()
-        {
-            int count = 0;
-            Node current = head;
-            while (current != null)
-            {
-                count++;
-                current = current.Next;
-            }
-            return count;
-        }
     }
+
 }
+
