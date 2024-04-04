@@ -225,6 +225,7 @@ namespace Assignment3.Utility
         {
             int count = 0;
             Node current = head;
+            while (current != null)
             {
                 count++;
                 current = current.Next;
