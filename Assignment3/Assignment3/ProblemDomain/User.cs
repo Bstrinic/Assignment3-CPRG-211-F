@@ -1,17 +1,22 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Assignment3
 {
+    [DataContract]
     public class User : IEquatable<User>
     {
+        [DataMember]
         public int Id { get; private set; }
+        [DataMember]
         public string Name { get; private set; }
+        [DataMember]
         public string Email { get; private set; }
-
+        [DataMember]
         public string Password { get; private set; }
 
         /// <summary>
@@ -55,7 +60,7 @@ namespace Assignment3
         public override bool Equals(Object other)
         {
             if (!(other is User otherUser))
-			    return false;
+                return false;
 
             return Id == otherUser.Id && Name.Equals(otherUser.Name) && Email.Equals(otherUser.Email);
         }
