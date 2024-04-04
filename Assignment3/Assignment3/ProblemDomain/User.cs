@@ -1,4 +1,4 @@
-﻿using Assignment3.Utility;
+using Assignment3.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace Assignment3
 {
     [DataContract]
-    [KnownType(typeof(SLL))]
     public class User : IEquatable<User>
     {
         [DataMember]

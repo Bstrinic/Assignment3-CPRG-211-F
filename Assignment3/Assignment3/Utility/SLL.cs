@@ -1,5 +1,3 @@
-﻿
-
 using System;
 
 using System.Runtime.Serialization;
@@ -433,4 +431,3 @@ namespace Assignment3.Utility
     }
 
 }
-
