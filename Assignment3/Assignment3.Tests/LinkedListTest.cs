@@ -4,7 +4,7 @@ using NUnit.Framework;
 [TestFixture]
 public class LinkedListTest
 {
-	[test]
+	[Test]
 	public void TestEmptyList()
 	{
 		

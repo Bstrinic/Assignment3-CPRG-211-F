@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Assignment3.Utility
 {
-    public class Linkedlist : ILinkedListADT
+    [DataContract]
+    [KnownType(typeof(SLL))]
+    public class SLL : ILinkedListADT
     {
+        [DataContract]
         private class Node
         {
             private User value;
-
+            [DataMember]
             public User Data { get; set; }
+            [DataMember]
             public Node Next { get; set; }
-
             public Node(User data, Node next)
             {
                 Data = data;
@@ -26,9 +26,11 @@ namespace Assignment3.Utility
                 this.value = value;
             }
         }
+
+        [DataMember]
         private Node head;
 
-        public Linkedlist()
+        public SLL()
         {
             _ = head == null;
         }
@@ -223,7 +225,6 @@ namespace Assignment3.Utility
         {
             int count = 0;
             Node current = head;
-            while (current != null)
             {
                 count++;
                 current = current.Next;
