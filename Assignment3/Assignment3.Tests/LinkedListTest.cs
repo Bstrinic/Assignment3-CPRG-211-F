@@ -1,6 +1,9 @@
 ﻿using System;
 using NUnit.Framework;
 
+
+namespace Assignment3.Tests;
+
 [TestFixture]
 public class LinkedListTests
 {
