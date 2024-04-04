@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace Assignment3
 {
     [DataContract]
+    [KnownType(typeof(SLL))]
     public class User : IEquatable<User>
     {
         [DataMember]
